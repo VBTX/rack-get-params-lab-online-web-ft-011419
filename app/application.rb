@@ -7,7 +7,7 @@ class Application
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
-
+    
     if req.path.match(/items/)
       @@items.each do |item|
         resp.write "#{item}\n"
@@ -19,11 +19,22 @@ class Application
     elsif req.path.match(/search/)
       search_term = req.params["q"]
       resp.write handle_search(search_term)
+    elsif req.path.match(/add/)
+      item = req.params["item"]
+      resp.write handle_search(search_term)
     else
       resp.write "Path Not Found"
     end
 
     resp.finish
+  end
+
+  def handle_add(item)
+    if @@items.include?(item)
+      @@cart << item
+    else
+      return "Path Not Found"
+    end
   end
 
   def handle_search(search_term)
