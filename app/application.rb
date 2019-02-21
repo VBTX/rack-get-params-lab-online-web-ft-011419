@@ -34,7 +34,7 @@ class Application
       @@cart << item
       return "added #{item}"
     else
-      return "Path Not Found"
+      return "We don't have that item"
     end
   end
 
